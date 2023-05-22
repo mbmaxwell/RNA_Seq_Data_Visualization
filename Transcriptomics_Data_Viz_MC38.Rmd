@@ -57,6 +57,8 @@ flowchart <- grViz("
       tab5 [label = '@@5', fillcolor=plum1]
       tab6 [label = '@@6', fillcolor=plum1]
       tab7 [label = '@@7', fillcolor=plum1]
+      tab8 [label = '@@8', fillcolor=plum1]
+
 
 
 
@@ -65,6 +67,7 @@ flowchart <- grViz("
       tab4 -> tab5;
       tab4 -> tab6;
       tab4 -> tab7;
+      tab4 -> tab8;
 
       }
 
@@ -75,6 +78,7 @@ flowchart <- grViz("
       [5]: 'Volcano plot'
       [6]: 'Heatmap of differentially expressed genes'
       [7]: 'GSEA Dotplot'
+      [8]: 'Venn Diagram'
 
       ")
 flowchart
@@ -86,7 +90,7 @@ The data visualized & analyzed here is from an RNA-seq experiment comparing the 
   The `MC38_edgeR_df` dataframe from this experiment includes important data such as normalized mRNA transcript counts, Log2fc, and adjusted p values across the transcriptome.
 ```{r import-data-load-packages, message=FALSE, hard_wrap=TRUE, warning=FALSE}
 #To set working directory on windows machine, replace backslashes with double backslashes for R to accept our file path
-wd <- r"(C:\Users\mattm\OneDrive\Desktop\Hargreaves_Lab\MC38_data\RNA_seq\ggplot_Volcano)"
+wd <- r"(C:\Users\mattm\OneDrive\Desktop\GitHub_projects\RNA_Seq_Data_Visualization_with_R)"
 
 #set working directory
 setwd(wd)
@@ -410,7 +414,7 @@ custom_dotplot
 
 
 ## **Venn Diagram**
-We can also make venn diagrams to assess the degree of overlap between two or more sets of genes of interest using the R package [euler](https://cran.r-project.org/web/packages/eulerr/vignettes/introduction.html). For example, I'm curious to know the degree of overlap between ARID1A deficient MC38 colon cancer cells and ARID1A deficient B16F10 melanoma cell and will make a venn diagram below to get my answer.
+We can also make venn diagrams to assess the degree of overlap between two or more sets of genes of interest using the R package [euler](https://cran.r-project.org/web/packages/eulerr/vignettes/introduction.html) which generates proportionally accurate sized venn diagrams unlike other common web-based venn diagram makers such as [venny](https://bioinfogp.cnb.csic.es/tools/venny/). For example, I'm curious to know the degree of overlap between ARID1A deficient MC38 colon cancer cells and ARID1A deficient B16F10 melanoma cell and will make a venn diagram below to get my answer.
 ```{r}
 #Filter for MC38 upregulated genes
 MC38_upregulated <- MC38_edgeR_df %>%
