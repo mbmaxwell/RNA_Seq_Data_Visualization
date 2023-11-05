@@ -20,7 +20,7 @@ output:
 }
 
 .tocify-header .tocify-item {
-  font-size: 0.90em;
+  font-size: 1.05em;
   padding-left: 25px;
   text-indent: 0;
 }
@@ -174,7 +174,7 @@ Down_genes <- volcano_df %>%
 ```
 
 
-## **Volcano ggplot of Differentially Expressed Genes**
+## **Volcano ggplot of transcriptome**
 Here, we use [ggplot from the Tidyverse R package](https://ggplot2.tidyverse.org/) to make the volcano plot because ggplot allows more room for customization when making a volcano plot compared to some other R packages. **Volcano plots such as this are a great way to visualize pair wise comparisons of the number of genes changing, the magnitude of change, and statistical confidence associated with those changes.** We'll also be sure to color code genes which we define as differentially expressed genes (DEGs) based on their log2fc and log10p values.
 ```{r volcano-plot, fig.cap = "**Figure 1: Volcano plot Highlighting Differentially Expressed Genes in sgArid1a MC38 cells**", message=FALSE}
 
@@ -221,7 +221,7 @@ final_plot
 ```
 For presentations, it can be helpful to highlight genes of interest on our volcano plot such as the three upregulated & downregulated genes I've highlighted on this volcano plot. **For context, the three downregulated DEGs I highlighted are immunosuppressive and three upregulated DEGs are pro-inflammatory which could all explain my observation of anti-tumor immunity in sgArid1a MC38 tumors compared to sgScramble MC38 tumors and are thus of value to highlight on the volcano plot.**
 
-## **Data wrangling for Heatmap**
+## **Data wrangling for ComplexHeatmap**
 To make a heatmap, we need to 1) grab the normalized counts values for each sample from our edgeR dataframe (MC38_edgeR_df), 2) filter for genes we want to visualize such as genes whose expression significantly changes, and 3) convert this subset of genes from a dataframe to a matrix to use as input for the ComplexHeatmap. In addition, we will also utilize some code to highlight genes of interest (same genes of interest on volcano plot) on the heatmaps we make.
 ```{r data-wrangling-heatmap, message=FALSE}
 #Rename the normalized counts columns we'll need for our heatmap by referencing their column number
@@ -394,7 +394,7 @@ Dotplot_gs <- rbind(upregulated_gs, downregulated_gs)
 ```
 
 
-## **GSEA Dotplot**
+## **GSEA Dotplot (bi-directional)**
 Plot the GSEA dotplot using ggplot.
 ```{r GSEA-dotplot, fig.cap = "**Figure 4: GSEA Dotplot of Upregulated and Downregulated Gene Sets in sgArid1a MC38 colon cancer cells**", message=FALSE}
 
@@ -419,7 +419,7 @@ custom_dotplot
 ```
 Here we can see prominent enrichment of pro-inflammatory gene sets in genes upregulated in sgArid1a MC38 such as Interferon Responses, a central element of my thesis studies. **GSEA analysis of datasets such as these have been incredibly helpful in advancing my thesis work by getting a sense of which biological pathways are being transcriptionally regulated in my various experimental systems!** 
 
-## **Proportionally sized Eulerr Venn Diagram**
+## **Venn diagrams**
 We can also make venn diagrams to assess the degree of overlap between two or more sets of genes of interest using the R package **[euler](https://cran.r-project.org/web/packages/eulerr/vignettes/introduction.html) which generates proportionally accurate sized venn diagrams** unlike other common web-based venn diagram makers such as [venny](https://bioinfogp.cnb.csic.es/tools/venny/). For example, I'm curious to know the degree of overlap between upregulated DEGs in sgArid1a MC38 colon cancer cells and upregulated DEGs in sgArid1a B16F10 melanoma cell and will make a venn diagram below to get my answer.
 ```{r venn, fig.cap = "**Figure 5: Proportionally Sized Venn Diagram Comparing Overlap of Upregulated DEGs in sgArid1a MC38 and B16F10 cells**", message=FALSE}
 #Filter for MC38 upregulated genes
