@@ -184,7 +184,6 @@ Down_genes <- volcano_df %>%
 ## **Volcano plot**
 Here, we use [ggplot2 from the Tidyverse R package](https://ggplot2.tidyverse.org/) to make the volcano plot because ggplot allows more room for customization when making a volcano plot compared to some other R packages. **Volcano plots such as this are a great way to visualize pair wise comparisons of the number of genes changing, the magnitude of change, and statistical confidence associated with those changes.** We'll also be sure to color code genes which we define as differentially expressed genes (DEGs) based on their log2fc and log10p values.
 ```{r volcano-plot, message=FALSE}
-
 #Customize what we want to show in our the volcano plot
 volcano_plot <- ggplot(data = volcano_df,
                      aes(x = Log2fc,
@@ -226,7 +225,7 @@ volcano_plot <- ggplot(data = volcano_df,
 #Call the volcano plot
 volcano_plot
 ```
-For presentations, it can be helpful to highlight genes of interest on our volcano plot such as the three upregulated & downregulated genes I've highlighted on this volcano plot. **For context, the two downregulated DEGs I highlighted are immunosuppressive and three upregulated DEGs are pro-inflammatory which could all contribute to our observation of anti-tumor immunity in sgArid1a MC38 tumors compared to sgScramble MC38 tumors and are thus of value to highlight on the volcano plot.**
+For presenting data, it is helpful to highlight genes of interest on our volcano plot such as the xix genes I've highlighted on this volcano plot. **For context, the two downregulated DEGs I highlighted are immunosuppressive and four upregulated DEGs are associated with an inflammatory interferon response which could contribute to our concurrent observation of anti-tumor immunity in sgArid1a MC38 tumors compared to sgScramble MC38 tumors.**
 
 ## **Data wrangling for MA plot**
 While a volcano plot visualizes the Log2FC and significance of DEGs, it tells you nothing about the expression level of these DEGs. An MA plot can fill this gap by plotting RNA-seq data normalized counts (TPM) vs Log2FC. In this code chunk, we join the mean TPM values of genes together with their Log2FC for plotting.
@@ -302,8 +301,7 @@ MA_df %>%
         panel.grid.major = element_blank())
 ```
 
-
-## **Data wrangling for Heatmap**
+## **Data wrangling for ComplexHeatmap**
 To make a heatmap, we need to 1) grab the normalized counts values for each sample from our edgeR dataframe (MC38_edgeR_df), 2) filter for genes we want to visualize such as genes whose expression significantly changes, and 3) convert this subset of genes from a dataframe to a matrix to use as input for the ComplexHeatmap. In addition, we will also utilize some code to highlight genes of interest (same genes of interest on volcano plot) on the heatmaps we make.
 ```{r data-wrangling-heatmap, message=FALSE}
 #Rename the normalized counts columns we'll need for our heatmap by referencing their column number
@@ -394,8 +392,10 @@ ht2 <- Heatmap(heat_mat,
 
 ht_list <- ht1 + ht2
 draw(ht_list, heatmap_legend_side = "right")
+
+
 ```
-**Heatmaps are useful for visualizing the relative relationships between gene expression values where rows are individual genes and columns are samples.** You can also communicate how many genes are upregulated versus downregulated in relative terms with heatmaps. Here, I've highlighted the same six genes I highlighted in the volcano plot.
+**Heatmaps are useful for visualizing the relative relationships between gene expression values between samples where rows are individual genes and columns are samples.** You can also communicate how many genes are upregulated versus downregulated in relative terms with heatmaps. Here, I've highlighted the same six genes I highlighted in the volcano plot that I know are important for the biological process I'm studying, anti-tumor immunity.
 
 
 ## **Data wrangling for GSEA**
@@ -465,11 +465,6 @@ Dotplot_gs <- rbind(upregulated_gs, downregulated_gs)
 Plot GSEA dotplot with ggplot.
 ```{r GSEA-dotplot, message=FALSE}
 
-# ggplot(Data_activated1, aes(NES, fct_reorder(Description, NES), fill=Data_activated1$p.adjust), showCategory=5) +
-#     geom_col(orientation='y') +
-#     scale_fill_continuous(low='red', high='blue', guide=guide_colorbar(reverse=TRUE)) +
-#     theme_minimal() + ylab(NULL)
-
 custom_dotplot <- ggplot(Dotplot_gs, aes(NES, fct_reorder(Description, NES))) +
   geom_point(aes(size = GeneRatio, color = p.adjust)) +
   theme_minimal(base_size = 15) +
@@ -531,7 +526,7 @@ fit <- euler(c("sgArid1a_MC38_up" = 184, "sgArid1a_B16F10_up" = 187,
 plot(fit, fills = c("dodgerblue4", "darkgoldenrod1"), font = 9, quantities = TRUE)
 
 ```
-From the results of the venn diagram, I can see that there are 65 commonly upregulated DEGs following ARID1A loss in the MC38 and B16F10 cancer cell lines. Since I'm interested in a phenotype of enhanced anti-tumor immunity that's observed in both sgArid1a tumor models, these commonly upregulated genes have provided key clues toward the molecular mechanism underlying ehnhanced anti-tumor immunity in both models
+From the results of the venn diagram, I can see that there are 65 commonly upregulated DEGs following ARID1A loss in the MC38 and B16F10 cancer cell lines. Since I'm interested in a phenotype of enhanced anti-tumor immunity that's observed in both sgArid1a tumor models, these commonly upregulated genes can provided clues towards the molecular mechanism underlying anti-tumor immunity in both models.
 
 
 ## **Session Info**
@@ -539,4 +534,3 @@ For reproducibility, my session info is listed below outlining the version of R 
 ```{r}
 print(sessionInfo())
 ```
-
