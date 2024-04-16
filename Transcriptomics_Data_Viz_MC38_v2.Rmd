@@ -214,13 +214,16 @@ ggplot(aes(x = Log2fc, y = -log10(adj_p_value))) +
   scale_x_continuous(breaks = c(seq(-6, 8, 2)),     
                      limits = c(-6, 8)) +
   labs(title = "MC38 Volcano Plot", 
-       x = "Log2FC (sgArid1a/sgScramble)",
-       y = "-log10(adjusted P-value)",
+       x = "Log2FC \n(sgArid1a/sgScramble)",
+       y = "-Log10(adj P-value)",
        colour = "Gene type") +
   theme_bw() + # Select theme with a white background  
   theme(panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.5),    
         panel.grid.minor = element_blank(),
-        panel.grid.major = element_blank())
+        panel.grid.major = element_blank(),
+        axis.title.x = element_text(size = 11),
+        axis.title.y = element_text(size = 11),
+        plot.title = element_text(size = 14, face = "bold", hjust =.425))
 
 ```
 For presenting data, it is helpful to highlight genes of interest on our volcano plot such as the xix genes I've highlighted on this volcano plot. **For context, the two downregulated DEGs I highlighted are immunosuppressive and four upregulated DEGs are associated with an inflammatory interferon response which could contribute to our concurrent observation of anti-tumor immunity in sg*Arid1a* MC38 tumors compared to sgScramble MC38 tumors.**
@@ -291,12 +294,15 @@ MA_df %>%
   scale_colour_manual(values = cols) + 
   labs(title = "MC38 MA Plot", 
        x = "Log2(Mean TPM)",
-       y = "Log2FC",
+       y = "Log2FC \n(sgArid1a/sgScramble)",
        colour = "Gene type") +
   theme_bw() + # Select theme with a white background  
   theme(panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.5),    
         panel.grid.minor = element_blank(),
-        panel.grid.major = element_blank())
+        panel.grid.major = element_blank(),
+        axis.title.x = element_text(size = 11),
+        axis.title.y = element_text(size = 11),
+        plot.title = element_text(size = 14, face = "bold", hjust =.45))
 ```
 
 ## **Data wrangling for Heatmap**
