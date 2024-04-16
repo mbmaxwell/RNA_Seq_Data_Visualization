@@ -299,7 +299,7 @@ MA_df %>%
         panel.grid.major = element_blank())
 ```
 
-## **Data wrangling for ComplexHeatmap**
+## **Data wrangling for Heatmap**
 To make a heatmap, we need to 1) grab the normalized counts values for each sample from our edgeR dataframe (MC38_edgeR_df), 2) filter for genes we want to visualize such as genes whose expression significantly changes, and 3) convert this subset of genes from a dataframe to a matrix to use as input for the ComplexHeatmap. In addition, we will also utilize some code to highlight genes of interest (same genes of interest on volcano plot) on the heatmaps we make.
 ```{r data-wrangling-heatmap, message=FALSE}
 #Rename the normalized counts columns we'll need for our heatmap by referencing their column number
@@ -393,6 +393,7 @@ draw(ht_list, heatmap_legend_side = "bottom")
 
 
 ```
+
 **Heatmaps are useful for visualizing the relative relationships between gene expression values between samples where rows are individual genes and columns are samples.** You can also communicate how many genes are upregulated versus downregulated in relative terms with heatmaps. Here, I've highlighted the same six genes I highlighted in the volcano plot that are implicated inthe biological process I'm studying, anti-tumor immunity.
 
 
